@@ -1,0 +1,238 @@
+show databases;
+
+use employeesdb;
+
+select database();
+
+CREATE Table Persons 
+(Id int not null,  
+Name varchar (40) not null, 
+Age int , 
+City varchar(25) DEFAULT 'New York'
+);
+
+INSERT into Persons (Id, Name, Age, City)
+Values( 1, 'Bhavna', 23, 'Delhi'),
+(2, 'Bhanu', 25, 'Noida'),
+(3, 'Billi', 56, 'Indore');
+
+DESC Persons;
+SELECT * FROM Persons;
+
+INSERT INTO Persons (id, Name, Age) VALUES (4, 'Jaggu', 34);
+
+SELECT * FROM Persons;
+
+
+
+CREATE TABLE Personsdata (  
+    ID int NOT NULL PRIMARY KEY,   
+    Name varchar(45) NOT NULL,   
+    Age int,   
+    City varchar(25)); 
+    
+INSERT INTO Personsdata(Id, Name, Age, City)   
+VALUES (1,'Robert', 15, 'Florida') ,   
+(2, 'Joseph', 35, 'California'),   
+(3, 'Peter', 40, 'Alaska'); 
+
+SELECT * FROM Personsdata;
+
+INSERT INTO Personsdata(Id, Name, Age, City)   
+VALUES (1,'Bhavna', 14, 'Olaska');
+
+INSERT INTO Personsdata(Id, Name) VALUES (4,'sammy'); 
+
+INSERT INTO Personsdata(Id, Name, city) VALUES (5,'Bro','');
+
+
+CREATE TABLE Animals(  
+id int NOT NULL AUTO_INCREMENT,   
+name CHAR(30) NOT NULL,   
+PRIMARY KEY (id)); 
+
+ INSERT INTO Animals (name) VALUES   
+('Tiger'),('Dog'),('Penguin'),   
+('Camel'),('Cat'),('Ostrich');  
+
+SELECT * FROM Animals;  
+
+CREATE TABLE Shirts (    
+    id INT PRIMARY KEY AUTO_INCREMENT,     
+    name VARCHAR(35),     
+    size ENUM('small', 'medium', 'large', 'x-large')    
+);  
+
+INSERT INTO Shirts(id, name, size)     
+VALUES (1,'t-shirt', 'medium'),     
+(2, 'casual-shirt', 'small'),     
+(3, 'formal-shirt', 'large');  
+
+SELECT * FROM Shirts;  
+
+CREATE TABLE Shirt (    
+    id INT PRIMARY KEY AUTO_INCREMENT,     
+    name VARCHAR(35),     
+    size ENUM('small', 'medium', 'large', 'x-large')    
+);  
+
+INSERT INTO Shirt(id, name, size)     
+VALUES (1,'t-shirt', 'medium'),     
+(2, 'casual-shirt', 'small'),     
+(3, 'formal-shirt', 'large'); 
+
+SELECT * FROM Shirt;
+
+CREATE INDEX idx_name ON Shirts(name); 
+
+SELECT * FROM Shirts USE INDEX(idx_name);   
+
+
+CREATE TABLE Persons2 (Person_ID int PRIMARY KEY,   
+Name varchar(45) NOT NULL,   
+Age int,   
+City varchar(25)  
+);
+
+SELECT * FROM Persons2;
+
+
+CREATE TABLE Orders (  
+    Order_ID int NOT NULL PRIMARY KEY,  
+    Order_Num int NOT NULL,  
+    Person_ID int,  
+    FOREIGN KEY (Person_ID) REFERENCES Persons2(Person_ID)  
+); 
+SELECT * FROM Persons2;
+SELECT * FROM Orders;
+
+INSERT INTO Persons2 values(1,'john',30,'london'),
+                          (2,'david',35,'paris'),
+                          (3,'roman',40,'tokiyo');
+                          
+INSERT INTO Orders values(4, 555, 1),
+                         (5, 666, 2),
+                         (6, 777, 3);
+
+CREATE TABLE People(  
+    id int NOT NULL AUTO_INCREMENT,  
+    name varchar(45) NOT NULL,  
+    occupation varchar(35) NOT NULL,  
+    age int,  
+    PRIMARY KEY (id)  
+);  
+
+INSERT INTO People (id, name, occupation, age, working_hours)    
+VALUES (101, 'Peter', 'Engineer', 32, 12);  
+
+INSERT INTO People VALUES  
+(102, 'Joseph', 'Developer', 30, 24),  
+(103, 'Mike', 'Leader', 28, 76),  
+(104, 'Stephen', 'Scientist', 45, 29);  
+
+SELECT * FROM People;
+
+INSERT INTO People (name, occupation, age)   
+VALUES ('Stephen', 'Scientist', 87), ('Bob', 'Actor', 34);  
+
+
+UPDATE People set name = 'Bhavna' where id = 104;
+
+UPDATE People set occupation = 'Tester', age= 23, name = 'Bhavna' where id= 104;
+
+SELECT * FROM People;
+
+DELETE FROM People WHERE id=104;  
+
+
+SELECT occupation FROM People;  
+SELECT Name, occupation, age FROM People;  
+SELECT * FROM People;
+
+SELECT * from People Group by age;
+
+CREATE TABLE Person5 (  
+  ID int AUTO_INCREMENT PRIMARY KEY,  
+  Name varchar(45) DEFAULT NULL,  
+  Email varchar(45) DEFAULT NULL UNIQUE,  
+  City varchar(25) DEFAULT NULL  
+);  
+INSERT INTO Person5(ID, Name, Email, City)   
+VALUES (1,'Mike', 'mike@javatpoint.com', 'California'),   
+(2, 'Alexandar', 'alexandar@javatpoint.com', 'New York'),   
+(3, 'Adam', 'adam@javatpoint.com', 'Los Angeles'),  
+(4, 'Peter', 'Peter@javatpoint.com', 'Alaska');  
+
+SELECT * FROM Person5;
+
+REPLACE INTO Person5 (id, city)  
+VALUES(4,'Amsterdam'); 
+
+REPLACE INTO Person5  
+SET ID = 1,  
+    Name = 'Mike',  
+    City = 'Birmingham';  
+    
+    
+CREATE TABLE Student (  
+  Stud_ID int AUTO_INCREMENT PRIMARY KEY,  
+  Name varchar(45) DEFAULT NULL,  
+  Email varchar(45) DEFAULT NULL,  
+  City varchar(25) DEFAULT NULL  
+);  
+
+INSERT INTO Student(Stud_ID, Name, Email, City)   
+VALUES (1,'Stephen', 'stephen@javatpoint.com', 'Texas'),   
+(2, 'Joseph', 'Joseph@javatpoint.com', 'Alaska'),   
+(3, 'Peter', 'Peter@javatpoint.com', 'california');  
+
+SELECT * FROM Student;  
+
+INSERT INTO Student(Stud_ID, Name, Email, City)   
+VALUES (4,'John', 'john@javatpoint.com', 'New York');  
+
+INSERT INTO Student(Stud_ID, Name, Email, City)   
+VALUES (4, 'John', 'john@javatpoint.com', 'New York'x)  
+ON DUPLICATE KEY UPDATE City = 'California';  
+
+CREATE TABLE person10 (    
+  id int AUTO_INCREMENT PRIMARY KEY,    
+  name varchar(45) NOT NULL,    
+  email varchar(45) NOT NULL,    
+  city varchar(25) NOT NULL    
+); 
+
+INSERT INTO person10 (id, name, email, city)     
+VALUES (1,'Stephen', 'stephen@javatpoint.com', 'Texas'),     
+(2, 'Joseph', 'Joseph@javatpoint.com', 'Alaska'),     
+(3, 'Peter', 'Peter@javatpoint.com', 'Texas'),  
+(4,'Donald', 'donald@javatpoint.com', 'New York'),     
+(5, 'Kevin', 'kevin@javatpoint.com', 'Texas'); 
+
+SELECT * FROM person10;    
+
+SELECT name, email, city  
+FROM person10  
+WHERE city = 'Texas';   
+
+CREATE TABLE person_info (    
+  person_id int AUTO_INCREMENT PRIMARY KEY,    
+  person_name varchar(45) NOT NULL,    
+  email varchar(45) NOT NULL,    
+  city varchar(25) NOT NULL    
+);     
+
+INSERT INTO person_info (person_name, email, city)  
+SELECT name, email, city  
+FROM person10 
+WHERE city = 'Texas'; 
+
+SELECT * FROM person_info;
+
+
+
+
+
+ 
+    
+    

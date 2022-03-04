@@ -1,0 +1,369 @@
+MYSQL Commands->
+
+CREATE DATABASE employeesdb;  // Creating a Database with the name employeesdb.
+
+show create database employeesdb;
+
+Output:
+
+Database	Create Database
+employeesdb	CREATE DATABASE `employeesdb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */
+
+show databases;
+
+Output:
+
+database
+employees_payroll
+employeesdb
+information_schema
+mysql
+performance_schema
+sakila
+sys
+
+USE employeesdb;
+
+Output: 3	8	02:59:27	USE employeesdb	0 row(s) affected	0.000 sec
+
+show schemas;     //Show databases and show schemas commands working same
+
+Result:
+
+database
+employees_payroll
+employeesdb
+information_schema
+mysql
+performance_schema
+sakila
+sys
+
+Select * from employees_payroll.employees;
+
+Result:
+
+1	Bhavna Shende	79	862
+2	Bhanu	Shende	80	863
+3	Billi	Shende	23	85
+
+Output: 3	18	05:57:16	Select * from employees_payroll.employees LIMIT 0, 1000	3 row(s) returned	0.032 sec / 0.000 sec
+
+use employeesdb;
+
+Output: 	#	Time	Action	Message	Duration / Fetch 3	1	06:44:02	use employeesdb	0 row(s) affected	0.000 sec
+
+select database();
+ 
+Output: 3	2	06:45:08	select database() LIMIT 0, 1000	1 row(s) returned	0.000 sec / 0.000 sec
+
+create table employee_data 
+     (
+       id             INT unsigned NOT NULL AUTO_INCREMENT,
+       name           VARCHAR(150) NOT NULL,
+       salary         Double NOT NULL,
+       start          DATE NOT NULL,
+       PRIMARY KEY    (id)
+     );
+
+Output: 3	4	06:48:51	create table employee_data 
+      (
+        id             INT unsigned NOT NULL AUTO_INCREMENT,
+        name           VARCHAR(150) NOT NULL,
+        salary         Double NOT NULL,
+        start          DATE NOT NULL,
+        PRIMARY KEY    (id)
+      )	0 row(s) affected	0.093 sec
+
+  DESCRIBE employee_data;
+
+Result: 
+
+id	   int unsigned	NO	PRI	
+name	   varchar(150)	NO		
+salary   double	NO		
+start	
+
+
+date	NO		
+
+Output: 3	7	06:50:35	DESCRIBE employee_data	4 row(s) returned	0.016 sec / 0.000 sec
+
+INSERT INTO employee_data (name, salary, start) VALUES
+              ( 'Bhavna', 37000.00, '2019-01-03' ),
+              ( 'Bhanu', 2000000.00, '2020-11-13' ),
+              ( 'Billi', 3000000.00, '2021-05-21' );
+
+Output: 
+3	8	06:53:37	INSERT INTO employee_data (name, salary, start) VALUES
+               ( 'Bhavna', 37000.00, '2019-01-03' ),
+               ( 'Bhanu', 2000000.00, '2020-11-13' ),
+               ( 'Billi', 3000000.00, '2021-05-21' )	3 row(s) affected
+ Records: 3  Duplicates: 0  Warnings: 0	0.063 sec
+
+SELECT * FROM employee_data;
+
+Result: 
+1	Bhavna 37000	2019-01-03
+2	Bhanu	2000000	2020-11-13
+3	Billi	3000000	2021-05-21
+
+Output: 3	9	06:54:28	SELECT * FROM employee_data LIMIT 0, 1000	3 row(s) returned	0.000 sec / 0.000 sec
+
+SELECT salary FROM employee_data WHERE name = 'Bhavna';
+
+Result: # Salary
+          37000
+
+Output: 3	10	06:55:35	SELECT salary FROM employee_data WHERE name = 'Bhavna' LIMIT 0, 1000	1 row(s) returned	0.000 sec / 0.000 sec
+
+SELECT * FROM employee_data
+		WHERE start BETWEEN CAST('2020-01-01' AS DATE) AND DATE(NOW());
+
+Result: 
+
+Id    Name   Salary      Start
+2	Bhanu	2000000	2020-11-13
+3	Billi	3000000	2021-05-21
+
+Result: 3	11	06:57:26	SELECT * FROM employee_data WHERE start BETWEEN CAST('2020-01-01' AS DATE) AND DATE(NOW()) LIMIT 0, 1000	2 row(s) returned
+	0.000 sec / 0.000 sec
+
+CREATE TABLE employee_table(  
+    id int NOT NULL AUTO_INCREMENT,  
+    name varchar(45) NOT NULL,  
+    occupation varchar(35) NOT NULL,  
+    age int NOT NULL,  
+    PRIMARY KEY (id)  
+);
+
+Output: 
+3	12	06:59:51	
+CREATE TABLE employee_table(  
+     id int NOT NULL AUTO_INCREMENT,  
+     name varchar(45) NOT NULL,  
+     occupation varchar(35) NOT NULL,  
+     age int NOT NULL,  
+     PRIMARY KEY (id)  
+ )	0 row(s) affected	0.094 sec
+
+describe employee_table;
+
+Result: 
+id	      int	        NO	PRI	
+name	      varchar(45)	  NO		
+occupation	varchar(35)	  NO		
+age	      int	        NO		
+
+Output: 3	13	07:01:39	describe employee_table	4 row(s) returned	0.063 sec / 0.000 sec
+
+drop table employee_table;
+
+Output: 
+3	14	07:02:25	drop table employee_table	0 row(s) affected	0.016 sec
+
+CREATE TABLE customer_table(  
+    cus_id int AUTO_INCREMENT PRIMARY KEY,  
+    cus_name varchar(45) NOT NULL,  
+    cus_lastname varchar(35) NOT NULL,  
+    cus_age int NOT NULL  
+); 
+
+Output: 
+3	15	07:03:14	CREATE TABLE customer_table(  
+     cus_id int AUTO_INCREMENT PRIMARY KEY,  
+     cus_name varchar(45) NOT NULL,  
+     cus_lastname varchar(35) NOT NULL,  
+     cus_age int NOT NULL  
+ )	0 row(s) affected	0.031 sec
+
+describe customer_table;
+
+Result: 
+cus_id	  int	            NO	          PRI	
+cus_name	  varchar(45)	NO		
+cus_lastname  varchar(35)	NO		
+cus_age	  int	            NO		
+
+Output: 
+3	16	07:03:45	describe customer_table	4 row(s) returned	0.047 sec / 0.000 sec
+
+ALTER TABLE customer_table  
+ADD cus_number varchar(40) NOT NULL;
+
+Output: 
+3	17	07:04:44	ALTER TABLE customer_table  
+ ADD cus_number varchar(40) NOT NULL	0 row(s) affected
+ Records: 0  Duplicates: 0  Warnings: 0	0.031 sec
+
+describe customer_table;
+
+Result: 
+cus_name	  varchar(45)	NO			
+cus_lastname  varchar(35)	NO			
+cus_age	  int	            NO			
+cus_number	  varchar(40)	NO			
+cus_id	  int	            NO	PRI		auto_increment
+
+Output:
+3	18	07:05:35	describe customer_table	5 row(s) returned	0.063 sec / 0.000 sec
+
+ALTER TABLE customer_table
+ADD cus_address varchar(100) NOT NULL  
+AFTER cus_lastname,  
+ADD cus_salary int(100) NOT NULL  
+AFTER cus_age;
+
+Output: 
+1	19	07:07:26	ALTER TABLE customer_table
+ ADD cus_address varchar(100) NOT NULL  
+ AFTER cus_lastname,  
+ ADD cus_salary int(100) NOT NULL  
+ AFTER cus_age	0 row(s) affected, 1 warning(s):
+ 1681 Integer display width is deprecated and will be removed in a future release.
+ Records: 0  Duplicates: 0  Warnings: 1	0.125 sec
+
+describe customer_table;
+
+Result: 
+cus_id	    int	          NO	PRI		auto_increment
+cus_name	   varchar(45)	    NO			
+cus_lastname   varchar(35)	    NO			
+cus_address	   varchar(100)	    NO			
+cus_age	   int	          NO			
+cus_salary	   int	          NO			
+cus_number	   varchar(40)	    NO			
+
+Output: 
+3	20	07:08:17	describe customer_table	7 row(s) returned	0.000 sec / 0.000 sec
+
+ALTER TABLE customer_table  
+MODIFY cus_lastname varchar(40) NULL;
+
+Output:
+3	21	07:10:38	ALTER TABLE customer_table  
+ MODIFY cus_lastname varchar(40) NULL	0 row(s) affected
+ Records: 0  Duplicates: 0  Warnings: 0	0.094 sec
+
+ALTER TABLE customer_table 
+DROP COLUMN cus_address; 
+
+Output: 
+3	22	07:11:16	ALTER TABLE customer_table 
+ DROP COLUMN cus_address	0 row(s) affected
+ Records: 0  Duplicates: 0  Warnings: 0	0.063 sec
+
+ALTER TABLE customer_table  
+RENAME TO cus_table; 
+
+Output:
+3	23	07:11:46	ALTER TABLE customer_table  
+ RENAME TO cus_table	0 row(s) affected	0.078 sec
+
+
+CREATE TABLE customer (    
+    Id int PRIMARY KEY NOT NULL,     
+    Name varchar(45) NOT NULL,     
+    Product varchar(45) DEFAULT NULL,     
+    Country varchar(25) DEFAULT NULL,     
+    Year int NOT NULL    
+);
+
+Output: 
+3	24	07:12:20	CREATE TABLE customer (    
+     Id int PRIMARY KEY NOT NULL,     
+     Name varchar(45) NOT NULL,     
+     Product varchar(45) DEFAULT NULL,     
+     Country varchar(25) DEFAULT NULL,     
+     Year int NOT NULL    
+ )	0 row(s) affected	0.078 sec
+
+
+INSERT INTO customer ( Id, Name, Product, Country, Year)     
+VALUES (1, 'Stephen', 'Computer', 'USA', 2015),     
+(2, 'Joseph', 'Laptop', 'India', 2016),     
+(3, 'John', 'TV', 'USA', 2016),    
+(4, 'Donald', 'Laptop', 'England', 2015),    
+(5, 'Joseph', 'Mobile', 'India', 2015),    
+(6, 'Peter', 'Mouse', 'England', 2016);
+
+Output:
+
+3	25	07:12:52	INSERT INTO customer ( Id, Name, Product, Country, Year)     
+ VALUES (1, 'Stephen', 'Computer', 'USA', 2015),     
+ (2, 'Joseph', 'Laptop', 'India', 2016),     
+ (3, 'John', 'TV', 'USA', 2016),    
+ (4, 'Donald', 'Laptop', 'England', 2015),    
+ (5, 'Joseph', 'Mobile', 'India', 2015),    
+ (6, 'Peter', 'Mouse', 'England', 2016)	6 row(s) affected
+ Records: 6  Duplicates: 0  Warnings: 0	0.016 sec
+
+
+select * from customer;
+
+Result:
+ 
+ID    Name        Product     Country    Year
+1	Stephen	Computer	USA	    2015
+2	Joseph	Laptop	India	    2016
+3	John	      TV	      USA	    2016
+4	Donald	Laptop	England   2015
+5	Joseph	Mobile	India	    2015
+6	Peter	      Mouse	      England   2016
+
+Output:
+3	26	07:13:25	select * from customer LIMIT 0, 1000	6 row(s) returned	0.000 sec / 0.000 sec
+
+desc customer;
+
+Result:
+
+Id	   int	      NO	PRI	
+Name	   varchar(45)	NO		
+Product  varchar(45)	YES		
+Country  varchar(25)	YES		
+Year	   int	      NO		
+
+Output:
+
+3	27	07:15:55	desc customer	5 row(s) returned	0.000 sec / 0.000 sec
+
+truncate table customer;
+
+Output:
+
+3	28	07:17:17	truncate table customer	0 row(s) affected	0.063 sec
+
+CREATE TABLE Persons (  
+    ID int NOT NULL,  
+    Name varchar(45) NOT NULL,  
+    Age int CHECK (Age>=18)  
+);
+
+
+Output:
+3	29	07:17:44	CREATE TABLE Persons (  
+     ID int NOT NULL,  
+     Name varchar(45) NOT NULL,  
+     Age int CHECK (Age>=18)  
+ )	0 row(s) affected	0.047 sec
+
+
+drop table Persons;
+
+Output:
+3	30	07:18:20	drop table Persons	0 row(s) affected	0.015 sec
+
+
+				
+
+
+
+			
+
+
+
+				
+
+
+
